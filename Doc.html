@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders API - Documentação Técnica</title>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        .info-box {
+            background: #f8f9fa;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px;
+            border-radius: 5px;
+        }
+        .server-url {
+            background: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        #swagger-ui {
+            padding: 20px;
+        }
+        .swagger-ui .info h1 {
+            display: none; /* Esconde título duplicado */
+        }
+        .swagger-ui .scheme-container {
+            background: #f8f9fa;
+            box-shadow: none;
+            padding: 10px 0;
+        }
+        .swagger-ui .btn.authorize {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+        .swagger-ui .btn.authorize:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 Orders API</h1>
+        <p>Sistema Completo de Gestão de Pedidos e Ocorrências</p>
+        <div class="server-url">
+            <strong>📍 URL da API:</strong> http://localhost:5000
+        </div>
+    </div>
+
+    <div class="info-box">
+        <h3>🔐 Credenciais para Teste</h3>
+        <p><strong>Usuário:</strong> admin | <strong>Senha:</strong> senha</p>
+        <p><em>Use estas credenciais no endpoint <strong>/api/Auth/login</strong> para obter o token JWT</em></p>
+    </div>
+
+    <div id="swagger-ui"></div>
+
+    <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
+    <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-standalone-preset.js"></script>
+
+    <script>
+        window.onload = function() {
+            const spec = {
+                openapi: "3.0.0",
+                info: {
+                    title: "Orders API",
+                    version: "1.0.0",
+                    description: `
+<h3>🎯 Funcionalidades Implementadas</h3>
+<ul>
+    <li>✅ <strong>Autenticação JWT</strong> - Segurança com tokens</li>
+    <li>✅ <strong>Gestão de Pedidos</strong> - CRUD completo</li>
+    <li>✅ <strong>Registro de Ocorrências</strong> - Com regras de negócio</li>
+    <li>✅ <strong>Domínio Rico</strong> - Entidades com comportamentos</li>
+</ul>
+
+<h3>📋 Regras de Negócio</h3>
+<ul>
+    <li>⏱️ <strong>10 minutos</strong> - Bloqueio de ocorrências duplicadas</li>
+    <li>🏁 <strong>Finalizadora</strong> - Segunda ocorrência marca como final</li>
+    <li>✅ <strong>Status Automático</strong> - Entrega baseada no tipo final</li>
+    <li>🚫 <strong>Imutabilidade</strong> - Pedidos concluídos não alteram</li>
+</ul>
+
+<h3>🛠️ Tecnologias</h3>
+• .NET 8.0 • Entity Framework • PostgreSQL • JWT • xUnit • Swagger
+                    `,
+                    contact: {
+                        name: "Desenvolvedor",
+                        email: "dev@empresa.com"
+                    }
+                },
+                servers: [
+                    {
+                        url: "http://localhost:5000",
+                        description: "Servidor Local - Execute: dotnet run"
+                    }
+                ],
+                components: {
+                    securitySchemes: {
+                        bearer: {
+                            type: "http",
+                            scheme: "bearer",
+                            bearerFormat: "JWT",
+                            description: "Obtenha o token em /api/Auth/login"
+                        }
+                    },
+                    schemas: {
+                        LoginDto: {
+                            type: "object",
+                            required: ["username", "password"],
+                            properties: {
+                                username: { 
+                                    type: "string", 
+                                    example: "admin"
+                                },
+                                password: { 
+                                    type: "string", 
+                                    example: "senha"
+                                }
+                            }
+                        },
+                        PedidoDto: {
+                            type: "object",
+                            required: ["numeroPedido"],
+                            properties: {
+                                numeroPedido: { 
+                                    type: "integer", 
+                                    example: 1001
+                                }
+                            }
+                        },
+                        OcorrenciaCreateDto: {
+                            type: "object",
+                            required: ["tipoOcorrencia"],
+                            properties: {
+                                tipoOcorrencia: { 
+                                    type: "integer",
+                                    enum: [0, 1, 2, 3],
+                                    example: 0,
+                                    description: "0=EmRotaDeEntrega, 1=EntregueComSucesso, 2=ClienteAusente, 3=AvariaNoProduto"
+                                },
+                                horaOcorrencia: { 
+                                    type: "string", 
+                                    format: "date-time", 
+                                    example: "2024-01-15T10:00:00Z"
+                                }
+                            }
+                        }
+                    }
+                },
+                paths: {
+                    "/api/Auth/login": {
+                        post: {
+                            tags: ["Autenticação"],
+                            summary: "🔐 Obter Token JWT",
+                            description: "Autentique-se para obter o token de acesso",
+                            requestBody: {
+                                required: true,
+                                content: {
+                                    "application/json": {
+                                        schema: {
+                                            $ref: "#/components/schemas/LoginDto"
+                                        },
+                                        example: {
+                                            username: "admin",
+                                            password: "senha"
+                                        }
+                                    }
+                                }
+                            },
+                            responses: {
+                                "200": {
+                                    description: "Token gerado com sucesso",
+                                    content: {
+                                        "application/json": {
+                                            example: {
+                                                token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "/api/pedidos": {
+                        get: {
+                            tags: ["Pedidos"],
+                            summary: "📋 Listar Todos os Pedidos",
+                            description: "Retorna todos os pedidos com suas ocorrências",
+                            security: [{ bearer: [] }],
+                            responses: {
+                                "200": { description: "Lista de pedidos retornada" }
+                            }
+                        },
+                        post: {
+                            tags: ["Pedidos"],
+                            summary: "🆕 Criar Novo Pedido", 
+                            description: "Cria um pedido com número único",
+                            security: [{ bearer: [] }],
+                            requestBody: {
+                                required: true,
+                                content: {
+                                    "application/json": {
+                                        schema: {
+                                            $ref: "#/components/schemas/PedidoDto"
+                                        },
+                                        example: {
+                                            numeroPedido: 1001
+                                        }
+                                    }
+                                }
+                            },
+                            responses: {
+                                "201": { description: "Pedido criado com sucesso" }
+                            }
+                        }
+                    },
+                    "/api/pedidos/{id}": {
+                        get: {
+                            tags: ["Pedidos"],
+                            summary: "🔍 Obter Pedido por ID",
+                            description: "Retorna um pedido específico com todas as ocorrências",
+                            security: [{ bearer: [] }],
+                            parameters: [
+                                {
+                                    name: "id",
+                                    in: "path",
+                                    required: true,
+                                    schema: { type: "integer" },
+                                    example: 1
+                                }
+                            ],
+                            responses: {
+                                "200": { description: "Pedido encontrado" },
+                                "404": { description: "Pedido não encontrado" }
+                            }
+                        }
+                    },
+                    "/api/pedidos/{pedidoId}/ocorrencias": {
+                        post: {
+                            tags: ["Ocorrências"],
+                            summary: "📝 Adicionar Ocorrência",
+                            description: "Adiciona uma ocorrência ao pedido (respeita regras de negócio)",
+                            security: [{ bearer: [] }],
+                            parameters: [
+                                {
+                                    name: "pedidoId", 
+                                    in: "path",
+                                    required: true,
+                                    schema: { type: "integer" },
+                                    example: 1
+                                }
+                            ],
+                            requestBody: {
+                                required: true,
+                                content: {
+                                    "application/json": {
+                                        schema: {
+                                            $ref: "#/components/schemas/OcorrenciaCreateDto"
+                                        },
+                                        example: {
+                                            tipoOcorrencia: 0,
+                                            horaOcorrencia: "2024-01-15T10:00:00Z"
+                                        }
+                                    }
+                                }
+                            },
+                            responses: {
+                                "201": { description: "Ocorrência criada com sucesso" },
+                                "400": { description: "Violação de regra de negócio" }
+                            }
+                        }
+                    }
+                }
+            };
+
+            const ui = SwaggerUIBundle({
+                spec: spec,
+                dom_id: '#swagger-ui',
+                deepLinking: true,
+                presets: [
+                    SwaggerUIBundle.presets.apis,
+                    SwaggerUIStandalonePreset
+                ],
+                layout: "StandaloneLayout",
+                validatorUrl: null
+            });
+
+            window.ui = ui;
+        }
+    </script>
+</body>
+</html>
