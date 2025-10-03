@@ -96,9 +96,7 @@ dotnet ef database update
 bash
 dotnet run
 5. Acesse a documentação
-text
-📚 Swagger UI: http://localhost:5000/swagger
-📄 Documentação: http://localhost:5000/api/docs
+
 🔐 Autenticação
 A API utiliza JWT (JSON Web Tokens) para autenticação.
 
