@@ -14,7 +14,7 @@ namespace OrdersApi.Api.Controllers
         public AuthController(IConfiguration config) => _config = config;
 
         
-        // Login: retorna token JWT. Credenciais fixas para fins de teste.
+        // Login: returns the JWT token. Fixed credentials for testing purposes
         
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginDto dto)

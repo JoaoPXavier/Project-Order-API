@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <IsPackable>false</IsPackable>
-    <!-- Linha adicionada para corrigir os erros de 'Atributo Duplicado' -->
+    <!-- Added line to fix 'Duplicate Attribute' errors' -->
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 

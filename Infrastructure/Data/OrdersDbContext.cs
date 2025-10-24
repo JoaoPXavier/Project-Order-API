@@ -18,7 +18,7 @@ namespace OrdersApi.Infrastructure.Data
                 eb.Property(p => p.HoraPedido).IsRequired();
                 eb.Property(p => p.IndEntregue).IsRequired();
                 
-                // Configuração do Value Object
+                // Value Object Configuration
                 eb.OwnsOne(p => p.NumeroPedido, vo =>
                 {
                     vo.Property(v => v.Numero).HasColumnName("NumeroPedido");

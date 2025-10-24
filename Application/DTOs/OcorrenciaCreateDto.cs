@@ -2,7 +2,7 @@ using OrdersApi.Domain.Enums;
 
 namespace OrdersApi.Application.DTOs
 {
-    // DTO para criação de ocorrência por cliente/API
+    // DTO for creating an occurrence by client/API
     public class OcorrenciaCreateDto
     {
         public ETipoOcorrencia TipoOcorrencia { get; set; }

@@ -3,7 +3,7 @@ using OrdersApi.Application.DTOs;
 
 namespace OrdersApi.Application.Validators
 {
-    // Validação simples para entrada de ocorrências
+    // Simple validation for occurrence entry
     public class OcorrenciaCreateDtoValidator : AbstractValidator<OcorrenciaCreateDto>
     {
         public OcorrenciaCreateDtoValidator()

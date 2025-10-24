@@ -1,6 +1,6 @@
 namespace OrdersApi.Application.DTOs
 {
-    // DTO para criação de pedido
+    // DTO for order creation
     public class PedidoDto
     {
         public int NumeroPedido { get; set; }

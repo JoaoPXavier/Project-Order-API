@@ -1,6 +1,6 @@
 namespace OrdersApi.Domain.ValueObjects
 {
-    // Value Object para encapsular regras do número do pedido.
+    //Value Object to encapsulate order number rules.
     public sealed class NumeroPedidoVO
     {
         public int Numero { get; }

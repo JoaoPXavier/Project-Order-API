@@ -12,10 +12,10 @@ using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configurar Serilog usando método de extensão
+// Configure Serilog using extension method
 builder.Host.ConfigureSerilog();
 
-// Configuração e DbContext (PostgreSQL)
+//Configuration and DbContext (PostgreSQL)
 var configuration = builder.Configuration;
 builder.Services.AddDbContext<OrdersDbContext>(opt =>
     opt.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));

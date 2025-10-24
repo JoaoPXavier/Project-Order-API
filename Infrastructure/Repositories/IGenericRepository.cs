@@ -1,6 +1,6 @@
 namespace OrdersApi.Infrastructure.Repositories
 {
-    // Interface genérica  - facilita testes e separação de infra
+    // Generic interface - facilitates testing and infrastructure separation
     public interface IGenericRepository<T> where T : class
     {
         Task<T?> GetByIdAsync(int id);

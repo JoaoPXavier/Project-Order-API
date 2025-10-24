@@ -22,10 +22,9 @@ namespace OrdersApi.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] PedidoDto dto)
         {
-            // ⚠️ COMENTADO TEMPORARIAMENTE - Descomentar depois que as tabelas existirem
             // var existe = await _pedidoRepo.ExisteNumeroPedidoAsync(dto.NumeroPedido);
             // if (existe) 
-            //     return BadRequest("Já existe um pedido com este número");
+            // return BadRequest("There is already an order with this number");
 
             var numeroVo = new NumeroPedidoVO(dto.NumeroPedido);
             var pedido = new Domain.Entities.Pedido(numeroVo);

@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <SkipGetUntrackedFiles>true</SkipGetUntrackedFiles>
-    <!-- Linha adicionada para corrigir os erros de 'Atributo Duplicado' -->
+    <!-- Added line to fix 'Duplicate Attribute' errors' -->
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 

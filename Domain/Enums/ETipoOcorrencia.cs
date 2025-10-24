@@ -1,6 +1,6 @@
 namespace OrdersApi.Domain.Enums
 {
-    // Tipos de ocorrência possíveis no domínio.
+    // Possible occurrence types in the domain.
     public enum ETipoOcorrencia
     {
         EmRotaDeEntrega,
