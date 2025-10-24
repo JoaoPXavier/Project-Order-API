@@ -1,10 +1,5 @@
 🚀 Orders API - Sistema de Gestão de Pedidos e Ocorrências
 
-https://img.shields.io/badge/.NET-8.0-512BD4?logo=dotnet
-https://img.shields.io/badge/PostgreSQL-16.2-336791?logo=postgresql
-https://img.shields.io/badge/Entity_Framework_Core-8.0-512BD4
-https://img.shields.io/badge/Swagger-6.5-85EA2D?logo=swagger
-
 Uma API RESTful completa desenvolvida em .NET 8 para gestão de pedidos e ocorrências, implementando Domain-Driven Design (DDD) com Domínio Rico e Repository Pattern.
 
 📋 Índice
